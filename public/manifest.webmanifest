@@ -1,0 +1,11 @@
+{
+  "name": "قلعه‌ی ذهن",
+  "short_name": "Mind Citadel",
+  "start_url": "/mind-citadel/",
+  "display": "standalone",
+  "background_color": "#0a0f0a",
+  "theme_color": "#0a0f0a",
+  "lang": "fa",
+  "dir": "rtl",
+  "icons": []
+}
