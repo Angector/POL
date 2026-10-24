@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useAuth } from '../context/AuthContext';
+import { useHabits } from '../hooks/useHabits';
 import { StatCard } from '../components/profile/StatCard';
 import { RankBadge } from '../components/profile/RankBadge';
 import { Card } from '../components/ui/Card';
 import { getMessageOfTheDay } from '../lib/constants';
+import { calcExternalStreak } from '../lib/streakCalc';
+import { formatPersianNumber } from '../lib/format';
 
 export default function Dashboard() {
   const { profile, loading } = useAuth();
+  const { habits, logs, successRate } = useHabits();
 
   if (loading || !profile) {
     return (
@@ -36,6 +40,18 @@ export default function Dashboard() {
           فرمانروای سرزمین {profile.territory_name || 'بی‌نام'}
         </p>
         <RankBadge points={profile.total_points} size="md" />
+        {(() => {
+          const externalStreak = calcExternalStreak(logs, habits);
+          if (externalStreak > 0) {
+            return (
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-command-amber/20 border border-command-amber rounded text-sm text-command-amber">
+                <span>🔥</span>
+                <span>پایدار در جنگ خارجی: {formatPersianNumber(externalStreak)} روز</span>
+              </div>
+            );
+          }
+          return null;
+        })()}
       </motion.header>
 
       {/* Stats Grid */}
@@ -50,7 +66,7 @@ export default function Dashboard() {
             },
           },
         }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
       >
         <StatCard
           label="روزهای پایداری"
@@ -78,6 +94,13 @@ export default function Dashboard() {
           value={profile.total_points}
           icon="⭐"
           accent="crimson"
+        />
+        <StatCard
+          label="موفقیت امروز"
+          value={successRate('daily')}
+          unit="%"
+          icon="📊"
+          accent="olive"
         />
       </motion.div>
 
