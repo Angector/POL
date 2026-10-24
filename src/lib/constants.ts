@@ -51,6 +51,7 @@ export const NAV_ITEMS: NavItem[] = [
   { path: '/world', label: 'جهان مشترک', icon: '🌍' },
   { path: '/letters', label: 'نامه‌ها', icon: '✉️' },
   { path: '/alliances', label: 'اتحاد', icon: '🤝' },
+  { path: '/patterns', label: 'الگوی حمله', icon: '📊' },
   { path: '/council', label: 'شورای مشاوران', icon: '🧙', phase: 9 },
   { path: '/oracle', label: 'اوراکل', icon: '🔮', phase: 9 },
   { path: '/mirror', label: 'آینه‌ی جنگ', icon: '🪞', phase: 9 },

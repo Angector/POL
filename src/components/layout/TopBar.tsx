@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { RankBadge } from '../profile/RankBadge';
 import { CrestBadge } from '../profile/CrestBadge';
 import { NotificationBell } from './NotificationBell';
+import { RiseBuffIndicator } from '../battle/RiseBuffIndicator';
 
 interface TopBarProps {
   onOpenSidebar: () => void;
@@ -52,6 +53,7 @@ export function TopBar({ onOpenSidebar }: TopBarProps) {
 
         {/* Left: Avatar and Notifications */}
         <div className="flex items-center gap-2">
+          <RiseBuffIndicator />
           <NotificationBell />
           {profile && (
             <button

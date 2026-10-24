@@ -79,3 +79,49 @@ export async function playDefeat(): Promise<void> {
     console.warn('Audio playback failed:', error);
   }
 }
+
+export async function playBreathIn(): Promise<void> {
+  try {
+    const ctx = getAudioContext();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(220, ctx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(330, ctx.currentTime + 2);
+
+    gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
+
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 2);
+  } catch (error) {
+    console.warn('Audio playback failed:', error);
+  }
+}
+
+export async function playBreathOut(): Promise<void> {
+  try {
+    const ctx = getAudioContext();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(330, ctx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(220, ctx.currentTime + 2);
+
+    gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
+
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 2);
+  } catch (error) {
+    console.warn('Audio playback failed:', error);
+  }
+}

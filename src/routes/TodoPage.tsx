@@ -5,6 +5,7 @@ import { FrequencyTabs } from '../components/habits/FrequencyTabs';
 import { SuccessGauge } from '../components/habits/SuccessGauge';
 import { HabitList } from '../components/habits/HabitList';
 import { HabitComposer } from '../components/habits/HabitComposer';
+import { TruceCard } from '../components/battle/TruceCard';
 import { ErrorBanner } from '../components/ui/ErrorBanner';
 import type { Habit, HabitFrequency, HabitCategory } from '../types/habit';
 
@@ -91,6 +92,9 @@ export default function TodoPage() {
           جنگ خارجی: فتح بیرونی | جنگ داخلی: فتح درونی
         </p>
       </div>
+
+      {/* Truce Card */}
+      <TruceCard />
 
       {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
