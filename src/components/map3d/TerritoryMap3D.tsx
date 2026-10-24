@@ -10,6 +10,8 @@ import { CapitalKeep } from './CapitalKeep';
 import { ZoomControls } from './ZoomControls';
 import { MapLegend } from './MapLegend';
 import { TerritoryHUD } from './TerritoryHUD';
+import { MapErrorBoundary } from '../errors/MapErrorBoundary';
+import { TerritoryListFallback } from './TerritoryListFallback';
 
 interface TerritoryMap3DProps {
   tiles: TileWithPosition[];
@@ -24,18 +26,8 @@ interface TerritoryMap3DProps {
   riseBuffUntil: string | null;
 }
 
-export function TerritoryMap3D({
-  tiles,
-  territory,
-  territoryName,
-  onTileClick,
-  elapsedMs,
-  isReady,
-  hoursRemaining,
-  onLiberate,
-  liberateLoading,
-  riseBuffUntil,
-}: TerritoryMap3DProps) {
+export function TerritoryMap3D(props: TerritoryMap3DProps) {
+  const { tiles, territory, territoryName, onTileClick, elapsedMs, isReady, hoursRemaining, onLiberate, liberateLoading, riseBuffUntil } = props;
   const cameraRef = useRef<CameraRigHandle>(null);
 
   const freedCount = tiles.filter(t => t.status === 'freed').length;
@@ -43,36 +35,53 @@ export function TerritoryMap3D({
     ? tiles.find(t => t.tile_index === territory.capital_tile_index)
     : null;
 
-  return (
-    <div className="relative w-full h-[calc(100vh-64px)]">
-      <TerritoryHUD
-        territoryName={territoryName}
-        freedCount={freedCount}
-        elapsedMs={elapsedMs}
-        isReady={isReady}
-        hoursRemaining={hoursRemaining}
-        onLiberate={onLiberate}
-        liberateLoading={liberateLoading}
-        riseBuffUntil={riseBuffUntil}
-      />
-      
-      <MapCanvas>
-        <CameraRig ref={cameraRef} />
-        <HexTileInstanced tiles={tiles} onTileClick={onTileClick} />
-        <FogLayer tiles={tiles} />
-        <ProvinceBorders tiles={tiles} />
-        <BattleLine tiles={tiles} />
-        {capitalTile && (
-          <CapitalKeep position={{ x: capitalTile.x, z: capitalTile.z }} />
-        )}
-      </MapCanvas>
+  // Check if WebGL is supported
+  const isWebGLSupported = (() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+    } catch (e) {
+      return false;
+    }
+  })();
 
-      <ZoomControls
-        onZoomIn={() => cameraRef.current?.zoomIn()}
-        onZoomOut={() => cameraRef.current?.zoomOut()}
-        onReset={() => cameraRef.current?.reset()}
-      />
-      <MapLegend />
-    </div>
+  // If WebGL not supported, show list fallback
+  if (!isWebGLSupported) {
+    return <TerritoryListFallback tiles={tiles} territoryName={territoryName} />;
+  }
+
+  return (
+    <MapErrorBoundary>
+      <div className="relative w-full h-[calc(100vh-64px)]">
+        <TerritoryHUD
+          territoryName={territoryName}
+          freedCount={freedCount}
+          elapsedMs={elapsedMs}
+          isReady={isReady}
+          hoursRemaining={hoursRemaining}
+          onLiberate={onLiberate}
+          liberateLoading={liberateLoading}
+          riseBuffUntil={riseBuffUntil}
+        />
+        
+        <MapCanvas>
+          <CameraRig ref={cameraRef} />
+          <HexTileInstanced tiles={tiles} onTileClick={onTileClick} />
+          <FogLayer tiles={tiles} />
+          <ProvinceBorders tiles={tiles} />
+          <BattleLine tiles={tiles} />
+          {capitalTile && (
+            <CapitalKeep position={{ x: capitalTile.x, z: capitalTile.z }} />
+          )}
+        </MapCanvas>
+
+        <ZoomControls
+          onZoomIn={() => cameraRef.current?.zoomIn()}
+          onZoomOut={() => cameraRef.current?.zoomOut()}
+          onReset={() => cameraRef.current?.reset()}
+        />
+        <MapLegend />
+      </div>
+    </MapErrorBoundary>
   );
 }
