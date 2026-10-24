@@ -17,6 +17,8 @@ import WorldMapPage from './routes/WorldMapPage';
 import LettersPage from './routes/LettersPage';
 import AlliancesPage from './routes/AlliancesPage';
 import PatternsPage from './routes/PatternsPage';
+import RelicsPage from './routes/RelicsPage';
+import SkillsPage from './routes/SkillsPage';
 import CouncilPage from './routes/CouncilPage';
 import OraclePage from './routes/OraclePage';
 import MirrorPage from './routes/MirrorPage';
@@ -74,6 +76,9 @@ function AppRoutes() {
         <Route path="/letters" element={<LettersPage />} />
         <Route path="/alliances" element={<AlliancesPage />} />
         <Route path="/patterns" element={<PatternsPage />} />
+        <Route path="/generals" element={<GeneralsHall />} />
+        <Route path="/relics" element={<RelicsPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
         <Route path="/council" element={<CouncilPage />} />
         <Route path="/oracle" element={<OraclePage />} />
         <Route path="/mirror" element={<MirrorPage />} />

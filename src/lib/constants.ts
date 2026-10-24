@@ -52,10 +52,12 @@ export const NAV_ITEMS: NavItem[] = [
   { path: '/letters', label: 'نامه‌ها', icon: '✉️' },
   { path: '/alliances', label: 'اتحاد', icon: '🤝' },
   { path: '/patterns', label: 'الگوی حمله', icon: '📊' },
+  { path: '/generals', label: 'تالار ژنرال‌ها', icon: '🎖' },
+  { path: '/relics', label: 'یادگاری‌ها', icon: '🏺' },
+  { path: '/skills', label: 'درخت مهارت', icon: '🌳' },
   { path: '/council', label: 'شورای مشاوران', icon: '🧙', phase: 9 },
   { path: '/oracle', label: 'اوراکل', icon: '🔮', phase: 9 },
   { path: '/mirror', label: 'آینه‌ی جنگ', icon: '🪞', phase: 9 },
-  { path: '/generals', label: 'تالار ژنرال‌ها', icon: '👥', phase: 8 },
   { path: '/profile', label: 'پروفایل', icon: '👤' },
 ];
 
