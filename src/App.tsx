@@ -1,11 +1,34 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ToastProvider } from './components/layout/ToastHost';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { AppShell } from './components/layout/AppShell';
+import { NotFound } from './components/ui/NotFound';
 import Register from './routes/Register';
 import Login from './routes/Login';
 import Oath from './routes/Oath';
 import Dashboard from './routes/Dashboard';
+import ProfilePage from './routes/ProfilePage';
+import TerritoryPage from './routes/TerritoryPage';
+import TodoPage from './routes/TodoPage';
+import GoalsPage from './routes/GoalsPage';
+import WorldMapPage from './routes/WorldMapPage';
+import LettersPage from './routes/LettersPage';
+import CouncilPage from './routes/CouncilPage';
+import OraclePage from './routes/OraclePage';
+import MirrorPage from './routes/MirrorPage';
+import GeneralsHall from './routes/GeneralsHall';
 import Health from './routes/Health';
+
+function ProtectedLayout() {
+  return (
+    <ProtectedRoute>
+      <AppShell>
+        <Outlet />
+      </AppShell>
+    </ProtectedRoute>
+  );
+}
 
 function AppRoutes() {
   const { session, profile, loading } = useAuth();
@@ -27,7 +50,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/health" element={<Health />} />
 
-      {/* Protected routes */}
+      {/* Oath route - protected but no shell */}
       <Route
         path="/oath"
         element={
@@ -36,14 +59,21 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+
+      {/* Protected routes with AppShell */}
+      <Route element={<ProtectedLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/territory" element={<TerritoryPage />} />
+        <Route path="/todo" element={<TodoPage />} />
+        <Route path="/goals" element={<GoalsPage />} />
+        <Route path="/world" element={<WorldMapPage />} />
+        <Route path="/letters" element={<LettersPage />} />
+        <Route path="/council" element={<CouncilPage />} />
+        <Route path="/oracle" element={<OraclePage />} />
+        <Route path="/mirror" element={<MirrorPage />} />
+        <Route path="/generals" element={<GeneralsHall />} />
+      </Route>
 
       {/* Root redirect */}
       <Route
@@ -59,17 +89,19 @@ function AppRoutes() {
         }
       />
 
-      {/* Catch-all */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* 404 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </ToastProvider>
   );
 }
 
