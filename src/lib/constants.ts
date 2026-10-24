@@ -45,11 +45,12 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { path: '/dashboard', label: 'داشبورد', icon: '🏰' },
-  { path: '/territory', label: 'سرزمین', icon: '🗺️', phase: 3 },
-  { path: '/todo', label: 'ماموریت‌ها', icon: '📋', phase: 5 },
-  { path: '/goals', label: 'اهداف', icon: '🎯', phase: 5 },
-  { path: '/world', label: 'جهان مشترک', icon: '🌍', phase: 7 },
-  { path: '/letters', label: 'نامه‌ها', icon: '✉️', phase: 7 },
+  { path: '/territory', label: 'سرزمین', icon: '🗺️' },
+  { path: '/todo', label: 'ماموریت‌ها', icon: '📋' },
+  { path: '/goals', label: 'اهداف', icon: '🎯' },
+  { path: '/world', label: 'جهان مشترک', icon: '🌍' },
+  { path: '/letters', label: 'نامه‌ها', icon: '✉️' },
+  { path: '/alliances', label: 'اتحاد', icon: '🤝' },
   { path: '/council', label: 'شورای مشاوران', icon: '🧙', phase: 9 },
   { path: '/oracle', label: 'اوراکل', icon: '🔮', phase: 9 },
   { path: '/mirror', label: 'آینه‌ی جنگ', icon: '🪞', phase: 9 },

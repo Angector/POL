@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { RankBadge } from '../profile/RankBadge';
 import { CrestBadge } from '../profile/CrestBadge';
+import { NotificationBell } from './NotificationBell';
 
 interface TopBarProps {
   onOpenSidebar: () => void;
@@ -49,17 +50,20 @@ export function TopBar({ onOpenSidebar }: TopBarProps) {
           )}
         </div>
 
-        {/* Left: Avatar */}
-        {profile && (
-          <button
-            onClick={() => navigate('/profile')}
-            className="relative group"
-            aria-label="پروفایل"
-          >
-            <CrestBadge seed={profile.crest_seed || 'default'} size={32} />
-            <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-command-amber transition-colors" />
-          </button>
-        )}
+        {/* Left: Avatar and Notifications */}
+        <div className="flex items-center gap-2">
+          <NotificationBell />
+          {profile && (
+            <button
+              onClick={() => navigate('/profile')}
+              className="relative group"
+              aria-label="پروفایل"
+            >
+              <CrestBadge seed={profile.crest_seed || 'default'} size={32} />
+              <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-command-amber transition-colors" />
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );
