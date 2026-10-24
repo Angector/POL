@@ -42,3 +42,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-command-olive);
 }
+
+/* Map container touch handling */
+.map-container canvas {
+  touch-action: none;
+}
