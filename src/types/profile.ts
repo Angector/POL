@@ -12,6 +12,9 @@ export interface Profile {
   is_anonymous: boolean;
   oath_signed_at: string | null;
   oath_signature: string | null;
+  cycle_started_at: string | null;
+  current_cycle: number;
+  rise_buff_until: string | null;
   created_at: string;
   updated_at: string;
 }

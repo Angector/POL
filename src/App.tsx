@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './components/layout/ToastHost';
+import { CinematicProvider } from './components/battle/CinematicToast';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AppShell } from './components/layout/AppShell';
 import { NotFound } from './components/ui/NotFound';
@@ -99,7 +100,9 @@ function App() {
   return (
     <ToastProvider>
       <AuthProvider>
-        <AppRoutes />
+        <CinematicProvider>
+          <AppRoutes />
+        </CinematicProvider>
       </AuthProvider>
     </ToastProvider>
   );

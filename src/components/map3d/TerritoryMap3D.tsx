@@ -16,6 +16,12 @@ interface TerritoryMap3DProps {
   territory: Territory | null;
   territoryName: string | null;
   onTileClick: (tile: TileWithPosition) => void;
+  elapsedMs: number;
+  isReady: boolean;
+  hoursRemaining: number;
+  onLiberate: () => void;
+  liberateLoading: boolean;
+  riseBuffUntil: string | null;
 }
 
 export function TerritoryMap3D({
@@ -23,6 +29,12 @@ export function TerritoryMap3D({
   territory,
   territoryName,
   onTileClick,
+  elapsedMs,
+  isReady,
+  hoursRemaining,
+  onLiberate,
+  liberateLoading,
+  riseBuffUntil,
 }: TerritoryMap3DProps) {
   const cameraRef = useRef<CameraRigHandle>(null);
 
@@ -33,7 +45,16 @@ export function TerritoryMap3D({
 
   return (
     <div className="relative w-full h-[calc(100vh-64px)]">
-      <TerritoryHUD territoryName={territoryName} freedCount={freedCount} />
+      <TerritoryHUD
+        territoryName={territoryName}
+        freedCount={freedCount}
+        elapsedMs={elapsedMs}
+        isReady={isReady}
+        hoursRemaining={hoursRemaining}
+        onLiberate={onLiberate}
+        liberateLoading={liberateLoading}
+        riseBuffUntil={riseBuffUntil}
+      />
       
       <MapCanvas>
         <CameraRig ref={cameraRef} />
