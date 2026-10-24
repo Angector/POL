@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { UpdatePrompt } from '../pwa/UpdatePrompt';
 
 interface AppShellProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ export function AppShell({ children }: AppShellProps) {
         <TopBar onOpenSidebar={() => setSidebarOpen(true)} />
         <main className="p-4 lg:p-8">{children}</main>
       </div>
+      <UpdatePrompt />
     </div>
   );
 }
