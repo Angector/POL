@@ -84,13 +84,6 @@ create or replace view public.public_profiles as
     is_anonymous
   from public.profiles;
 
--- Allow authenticated users to read public_profiles
-create policy "Authenticated users can read public profiles"
-  on public.public_profiles
-  for select
-  to authenticated
-  using (true);
-
 -- ============================================================
 -- 4. TRIGGER: handle_new_user
 -- ============================================================
@@ -222,15 +215,3 @@ $$;
 
 -- Grant execute to authenticated users
 grant execute on function public.consume_invite_code(text, uuid) to authenticated;
-
--- ============================================================
--- 8. SEED DATA (for development – uncomment to use)
--- ============================================================
---
--- insert into public.invite_codes (code, issued_by, note) values
---   ('123456', 'admin', 'کد تست ۱'),
---   ('654321', 'admin', 'کد تست ۲'),
---   ('111111', 'admin', 'کد تست ۳'),
---   ('222222', 'admin', 'کد تست ۴'),
---   ('333333', 'admin', 'کد تست ۵');
---

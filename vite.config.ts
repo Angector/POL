@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// اگر اسم ریپو عوض شد، مقدار base هم باید تغییر کند
 export default defineConfig({
   plugins: [
     react(),
