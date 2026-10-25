@@ -18,8 +18,8 @@ export default defineConfig({
         background_color: '#0a0f0a',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/mind-citadel/',
-        start_url: '/mind-citadel/',
+        scope: '/POL/',
+        start_url: '/POL/',
         lang: 'fa',
         dir: 'rtl',
         icons: [
@@ -59,7 +59,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/mind-citadel/',
+  base: '/POL/',
   server: {
     port: 5173,
   },
